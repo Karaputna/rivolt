@@ -29,4 +29,24 @@ RIVOLT — це сучасний сайт магазину футболок, к�
 
 ### Референси
 
-Для створення дизайну будуть використані референси сучасних сайтів магазинів одягу та пошукові матеріали з Pinterest.
+## Референси дизайну
+
+### Футболки
+
+![Футболка](images/references/tshirt.jpg)
+
+![Футболка](images/references/tshirt2.jpg)
+
+### Худі та кофти
+
+![Худі](images/references/Hoodie.jpg)
+
+![Vintage Hoodie](images/references/Vintage%20Hoodie.jpg)
+
+### Референси сайту
+
+![Дизайн сайту](images/references/website.jpg)
+
+![Дизайн сайту](images/references/website2.jpg)
+
+![Дизайн сайту](images/references/website3.jpg)
