@@ -33,20 +33,20 @@ RIVOLT — це сучасний сайт магазину футболок, к�
 
 ### Футболки
 
-![Футболка](images/references/tshirt.jpg)
+![Футболка](https://pin.it/9dPkoLqSE)
 
-![Футболка](images/references/tshirt2.jpg)
+![Футболка](https://pin.it/7isxBEJu0)
 
 ### Худі та кофти
 
-![Худі](images/references/Hoodie.jpg)
+![Худі](https://pin.it/4zmRUvzPA)
 
-![Vintage Hoodie](images/references/Vintage%20Hoodie.jpg)
+![Vintage Hoodie](https://pin.it/73sZrZgRz)
 
 ### Референси сайту
 
-![Дизайн сайту](images/references/website.jpg)
+![Дизайн сайту](https://pin.it/3ewtF6lVl)
 
-![Дизайн сайту](images/references/website2.jpg)
+![Дизайн сайту](https://pin.it/7Mz5QBJim)
 
-![Дизайн сайту](images/references/website3.jpg)
+![Дизайн сайту](https://pin.it/3qZeVILp2)
