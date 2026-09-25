@@ -116,7 +116,7 @@
     <!-- ===== ОБРАНЕ: список збережених товарів користувача ===== -->
     <section id="favorites">
       <h2>Обране</h2>
-      <p>Тут з'являться товари, які ти зберегла для себе. Поки що список порожній.</p>
+      <p>Тут з'являться товари, які ви зберегли для себе. Поки що список порожній.</p>
     </section>
 
     <!-- ===== КОШИК: товари, додані до замовлення ===== -->
@@ -125,7 +125,7 @@
       <p>Кошик порожній. Додай товари з каталогу вище.</p>
     </section>
 
-    <!-- ===== КОНТАКТИ: форма зворотного зв'язку ===== -->
+
     <section id="contacts">
       <h2>Контакти</h2>
       <form action="#" method="post">
@@ -166,7 +166,6 @@
 
   </main>
 
-  <!-- ===== FOOTER: CSS Grid — три колонки (лого / навігація / соцмережі) ===== -->
   <footer>
     <div class="footer-brand">RIVOLT<br><small>© 2026. Навчальний проєкт.</small></div>
 
@@ -186,11 +185,9 @@
   </footer>
 
   <script>
-    // Знаходимо кнопку і тег <html>
     const themeToggle = document.getElementById('theme-toggle');
     const htmlEl = document.documentElement;
 
-    // При кліку перемикаємо data-theme між "dark" і "light"
     themeToggle.addEventListener('click', () => {
       const current = htmlEl.getAttribute('data-theme');
       const next = current === 'dark' ? 'light' : 'dark';
