@@ -1,3 +1,4 @@
+/* Базові кольори (темна тема, за замовчуванням) */
 :root,
 :root[data-theme="dark"] {
   --bg: #0e0b0a;
@@ -9,6 +10,7 @@
   --border: #232326;
 }
 
+/* Альтернативний набір значень для світлої теми */
 :root[data-theme="light"] {
   --bg: #faf7f2;
   --fg: #1c1613;
@@ -30,8 +32,11 @@ body {
 }
 a { color: inherit; text-decoration: none; }
 
+/* Зображення ніколи не виходять за межі контейнера */
 img { max-width: 100%; height: auto; display: block; }
 
+/* ===== HEADER / NAV =====
+   Mobile-first: базово — колонка, від 768px — розгортаємо в рядок */
 header {
   display: flex;
   flex-direction: column;
@@ -241,6 +246,7 @@ footer .footer-social {
   gap: 1rem;
 }
 
+/* Розширення макета від 768px (планшет і більше) */
 @media (min-width: 768px) {
   header {
     flex-direction: row;
@@ -264,6 +270,7 @@ footer .footer-social {
   footer .footer-social { justify-content: flex-end; }
 }
 
+/* Ще ширші відступи на великих екранах */
 @media (min-width: 1200px) {
   main { padding: 0 3rem; }
   section { padding: 5rem 0; }
