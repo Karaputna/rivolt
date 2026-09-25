@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,10 @@
 <body>
 
   <header>
-    <div class="logo">RIV<span>OLT</span></div>
+    <div class="header-controls">
+      <div class="logo">RIV<span>OLT</span></div>
+      <button id="theme-toggle" type="button" aria-label="Перемкнути тему">☀ / ☾</button>
+    </div>
 
     <nav aria-label="Основна навігація">
       <ul>
@@ -36,12 +39,12 @@
       <h2>Футболки</h2>
       <div class="grid">
         <article class="product">
-          <img class="thumb" src="images/tshirt-static.jpg" alt="Чорна футболка з принтом статичних перешкод на грудях" width="400" height="500">
+          <img class="thumb" src="images/tshirt-static.jpg" alt="Чорна футболка з принтом" width="400" height="500">
           <h3>Футболка "Static"</h3>
           <p class="price">799 ₴</p>
         </article>
         <article class="product">
-          <img class="thumb" src="images/tshirt-concrete.jpg" alt="Сіра футболка з принтом бетонної текстури" width="400" height="500">
+          <img class="thumb" src="images/tshirt-concrete.jpg" alt="Сіра футболка з принтом" width="400" height="500">
           <h3>Футболка "Concrete"</h3>
           <p class="price">849 ₴</p>
         </article>
@@ -62,7 +65,7 @@
           <p class="price">1899 ₴</p>
         </article>
         <article class="product">
-          <img class="thumb" src="images/hoodie-signal.jpg" alt="Кофта кольору хакі з невеликим принтом-логотипом на грудях" width="400" height="500">
+          <img class="thumb" src="images/sweatshirt-signal.jpg" alt="Кофта кольору хакі з невеликим принтом-логотипом на грудях" width="400" height="500">
           <h3>Кофта "Signal"</h3>
           <p class="price">1599 ₴</p>
         </article>
@@ -90,7 +93,7 @@
       <div class="grid">
         <article class="product">
           <span class="badge">Бестселер</span>
-          <img class="thumb" src="images/tshirt-static.jpg" alt="Чорна футболка з принтом статичних перешкод на грудях" width="400" height="500">
+          <img class="thumb" src="images/tshirt-static.jpg" alt="Чорна футболка з принтом" width="400" height="500">
           <h3>Футболка "Static"</h3>
           <p class="price">799 ₴</p>
         </article>
@@ -104,7 +107,7 @@
 
     <section id="favorites">
       <h2>Обране</h2>
-      <p>Тут з'являться товари, які ти зберегла для себе. Поки що список порожній.</p>
+      <p>Тут з'являться товари, які ви зберегли для себе. Поки що список порожній.</p>
     </section>
 
     <section id="cart">
@@ -153,8 +156,33 @@
   </main>
 
   <footer>
-    <div>© 2026 RIVOLT. Навчальний проєкт.</div>
+    <div class="footer-brand">RIVOLT<br><small>© 2026. Навчальний проєкт.</small></div>
+
+    <nav class="footer-nav" aria-label="Навігація у футері">
+      <ul>
+        <li><a href="#tshirts">Футболки</a></li>
+        <li><a href="#hoodies">Худі</a></li>
+        <li><a href="#about">Про бренд</a></li>
+        <li><a href="#contacts">Контакти</a></li>
+      </ul>
+    </nav>
+
+    <aside class="footer-social">
+      <a href="#" aria-label="Instagram">Instagram</a>
+      <a href="#" aria-label="TikTok">TikTok</a>
+    </aside>
   </footer>
+
+  <script>
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlEl = document.documentElement;
+
+    themeToggle.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      htmlEl.setAttribute('data-theme', next);
+    });
+  </script>
 
 </body>
 </html>
