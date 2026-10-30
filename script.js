@@ -54,3 +54,50 @@ menuLinks.forEach(function (link) {
     menuToggle.setAttribute("aria-label", "Відкрити меню");
   });
 });
+
+const form = document.querySelector("#contacts form");
+const emailInput = document.querySelector("#contacts input[type='email']");
+const formMessage = document.querySelector("#form-message");
+
+function showMessage(text, type) {
+  formMessage.textContent = text;
+  formMessage.className = type;
+}
+
+function checkEmail(email) {
+  if (email === "") {
+    return "Введіть email.";
+  }
+  if (!email.includes("@")) {
+    return "Email має містити символ @.";
+  }
+  return "";
+}
+
+if (form && emailInput && formMessage) {
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const email = emailInput.value.trim();
+    console.log("Email:", email);
+
+    const error = checkEmail(email);
+    if (error) {
+      showMessage(error, "form-error");
+    } else {
+      showMessage("Дякуємо! Повідомлення надіслано.", "form-success");
+      form.reset();
+    }
+  });
+
+  emailInput.addEventListener("input", function () {
+    const error = checkEmail(emailInput.value.trim());
+    if (error) {
+      showMessage(error, "form-error");
+    } else {
+      showMessage("Email виглядає правильно.", "form-success");
+    }
+  });
+} else {
+  console.log("Форму, поле email або #form-message не знайдено");
+}

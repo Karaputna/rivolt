@@ -456,3 +456,13 @@ footer .footer-social {
   color: var(--accent-2);
   font-weight: 700;
 }
+
+.form-error {
+  color: #e05a4f;
+  margin-top: 0.75rem;
+}
+
+.form-success {
+  color: #C9A24A;
+  margin-top: 0.75rem;
+}
