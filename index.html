@@ -1,21 +1,42 @@
 <!DOCTYPE html>
 <html lang="uk" data-theme="dark">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RIVOLT — магазин одягу з оригінальними принтами</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-  <!-- ===== HEADER: логотип, навігація, перемикач теми ===== -->
   <header>
     <div class="header-controls">
-      <div class="logo">RIV<span>OLT</span></div>
-      <button id="theme-toggle" type="button" aria-label="Перемкнути тему">☀ / ☾</button>
+
+      <div class="logo">
+        RIV<span>OLT</span>
+      </div>
+
+      <button
+        id="theme-toggle"
+        type="button"
+        aria-label="Перемкнути тему"
+        title="Перемкнути тему">
+        ☀ / ☾
+      </button>
+
     </div>
 
-    <nav aria-label="Основна навігація">
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-label="Відкрити меню"
+      aria-expanded="false">
+      ☰
+    </button>
+
+    <nav id="main-menu" aria-label="Основна навігація">
+
       <ul>
         <li><a href="#tshirts">Футболки</a></li>
         <li><a href="#hoodies">Кофти та худі</a></li>
@@ -26,118 +47,241 @@
         <li><a href="#cart">Кошик</a></li>
         <li><a href="#contacts">Контакти</a></li>
       </ul>
+
     </nav>
+
   </header>
 
   <main>
 
-    <!-- ===== HERO: головний екран з заголовком (єдиний h1 на сторінці) ===== -->
     <section id="hero">
-      <h1>Одяг для тих, хто не одягається як усі</h1>
-      <p>RIVOLT — футболки, кофти та худі з оригінальними принтами для streetwear-стилю. Без компромісів, без конвеєра.</p>
+
+      <h1>
+        Одяг для тих, хто не одягається як усі
+      </h1>
+
+      <p>
+        RIVOLT — футболки, кофти та худі з оригінальними
+        принтами для streetwear-стилю.
+        Без компромісів, без конвеєра.
+      </p>
+
     </section>
 
-    <!-- ===== ФУТБОЛКИ: каталог футболок, кожна картка — окрема article ===== -->
     <section id="tshirts">
+
       <h2>Футболки</h2>
+
       <div class="grid">
+
         <article class="product">
-          <img class="thumb" src="images/tshirt-static.jpg.jpg" alt="Чорна футболка з принтом статичних перешкод на грудях" width="400" height="500">
+
+          <img
+            class="thumb"
+            src="images/tshirt-static.jpg.jpg"
+            alt="Чорна футболка з принтом статичних перешкод на грудях"
+            width="400"
+            height="500">
+
           <h3>Футболка "Static"</h3>
+
           <p class="price">799 ₴</p>
+
         </article>
+
         <article class="product">
-          <img class="thumb" src="images/tshirt-concrete.jpg.jpg" alt="Сіра футболка з принтом бетонної текстури" width="400" height="500">
+
+          <img
+            class="thumb"
+            src="images/tshirt-concrete.jpg.jpg"
+            alt="Сіра футболка з принтом бетонної текстури"
+            width="400"
+            height="500">
+
           <h3>Футболка "Concrete"</h3>
+
           <p class="price">849 ₴</p>
+
         </article>
+
         <article class="product">
-          <img class="thumb" src="images/tshirt-riot.jpg.jpg" alt="Чорна футболка з великим написом Riot спереду" width="400" height="500">
+
+          <img
+            class="thumb"
+            src="images/tshirt-riot.jpg.jpg"
+            alt="Чорна футболка з великим написом Riot спереду"
+            width="400"
+            height="500">
+
           <h3>Футболка "Riot"</h3>
+
           <p class="price">799 ₴</p>
+
         </article>
+
       </div>
+
     </section>
 
-    <!-- ===== КОФТИ ТА ХУДІ: каталог + aside з розмірною сіткою ===== -->
     <section id="hoodies">
+
       <h2>Кофти та худі</h2>
+
       <div class="grid">
+
         <article class="product">
-          <img class="thumb" src="images/hoodie-shadow.jpg.jpg" alt="Чорне худі з капюшоном без принту, вільний крій" width="400" height="500">
+
+          <img
+            class="thumb"
+            src="images/hoodie-shadow.jpg.jpg"
+            alt="Чорне худі з капюшоном без принту, вільний крій"
+            width="400"
+            height="500">
+
           <h3>Худі "Shadow"</h3>
+
           <p class="price">1899 ₴</p>
+
         </article>
+
         <article class="product">
-          <img class="thumb" src="images/sweatshirt-signal.jpg.jpg" alt="Кофта кольору хакі з невеликим принтом-логотипом на грудях" width="400" height="500">
+
+          <img
+            class="thumb"
+            src="images/sweatshirt-signal.jpg.jpg"
+            alt="Кофта кольору хакі з невеликим принтом-логотипом на грудях"
+            width="400"
+            height="500">
+
           <h3>Кофта "Signal"</h3>
+
           <p class="price">1599 ₴</p>
+
         </article>
+
       </div>
 
-      <!-- Побічна інформація про розміри, не є основним контентом секції -->
       <aside>
-        Розмірна сітка: S / M / L / XL. Виріб пошитий у вільному крої — рекомендуємо брати свій звичний розмір.
+        Розмірна сітка: S / M / L / XL.
+        Виріб пошитий у вільному крої —
+        рекомендуємо брати свій звичний розмір.
       </aside>
+
     </section>
 
-    <!-- ===== НОВИНКИ: нещодавно додані товари ===== -->
     <section id="new">
+
       <h2>Новинки</h2>
+
       <div class="grid">
+
         <article class="product">
+
           <span class="badge">NEW</span>
-          <img class="thumb" src="images/hoodie-voltage.jpg.png" alt="Жовто-чорне худі з градієнтним принтом розряду блискавки" width="400" height="500">
+
+          <img
+            class="thumb"
+            src="images/hoodie-voltage.jpg.png"
+            alt="Жовто-чорне худі з градієнтним принтом розряду блискавки"
+            width="400"
+            height="500">
+
           <h3>Худі "Voltage"</h3>
+
           <p class="price">1999 ₴</p>
+
         </article>
+
       </div>
+
     </section>
 
-    <!-- ===== ПОПУЛЯРНЕ: найбільш продавані товари ===== -->
     <section id="bestsellers">
+
       <h2>Популярні товари</h2>
+
       <div class="grid">
+
         <article class="product">
+
           <span class="badge">Бестселер</span>
-          <img class="thumb" src="images/tshirt-static.jpg.jpg" alt="Чорна футболка з принтом статичних перешкод на грудях" width="400" height="500">
+
+          <img
+            class="thumb"
+            src="images/tshirt-static.jpg.jpg"
+            alt="Чорна футболка з принтом статичних перешкод на грудях"
+            width="400"
+            height="500">
+
           <h3>Футболка "Static"</h3>
+
           <p class="price">799 ₴</p>
+
         </article>
+
       </div>
+
     </section>
 
-    <!-- ===== ПРО БРЕНД: коротка розповідь про ідею RIVOLT ===== -->
     <section id="about">
+
       <h2>Про бренд</h2>
-      <p>RIVOLT з'явився як реакція на одноманітний масмаркет. Ми створюємо принти самі, друкуємо їх на щільній бавовні та шиємо невеликими партіями — щоб речі не втрачали індивідуальність.</p>
+
+      <p>
+        RIVOLT з'явився як реакція на одноманітний масмаркет.
+        Ми створюємо принти самі, друкуємо їх на щільній бавовні
+        та шиємо невеликими партіями — щоб речі не втрачали
+        індивідуальність.
+      </p>
+
     </section>
 
-    <!-- ===== ОБРАНЕ: список збережених товарів користувача ===== -->
     <section id="favorites">
+
       <h2>Обране</h2>
-      <p>Тут з'являться товари, які ви зберегли для себе. Поки що список порожній.</p>
+
+      <p>
+        Тут з'являться товари, які ви зберегли для себе.
+        Поки що список порожній.
+      </p>
+
     </section>
 
-    <!-- ===== КОШИК: товари, додані до замовлення ===== -->
     <section id="cart">
-      <h2>Кошик</h2>
-      <p>Кошик порожній. Додай товари з каталогу вище.</p>
-    </section>
 
+      <h2>Кошик</h2>
+
+      <p>
+        Кошик порожній.
+        Додай товари з каталогу вище.
+      </p>
+
+    </section>
 
     <section id="contacts">
+
       <h2>Контакти</h2>
+
       <form action="#" method="post">
 
         <div class="field">
           <label for="name">Ім'я</label>
-          <input type="text" id="name" name="name" placeholder="Як до вас звертатись" required>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Як до вас звертатись"
+            required>
         </div>
 
         <div class="field">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="you@example.com"
+            required>
         </div>
 
         <div class="field">
@@ -152,22 +296,39 @@
 
         <div class="field">
           <label for="message">Повідомлення</label>
-          <textarea id="message" name="message" placeholder="Опишіть ваше питання" required></textarea>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Опишіть ваше питання"
+            required></textarea>
         </div>
 
         <div class="field checkbox-row">
-          <input type="checkbox" id="consent" name="consent" required>
-          <label for="consent">Погоджуюсь на обробку персональних даних</label>
+          <input
+            type="checkbox"
+            id="consent"
+            name="consent"
+            required>
+          <label for="consent">
+            Погоджуюсь на обробку персональних даних
+          </label>
         </div>
 
         <button type="submit">Надіслати</button>
+
       </form>
+
     </section>
 
   </main>
 
   <footer>
-    <div class="footer-brand">RIVOLT<br><small>© 2026. Навчальний проєкт.</small></div>
+
+    <div class="footer-brand">
+      RIVOLT
+      <br>
+      <small>© <span id="year">2026</span>. Навчальний проєкт.</small>
+    </div>
 
     <nav class="footer-nav" aria-label="Навігація у футері">
       <ul>
@@ -182,18 +343,11 @@
       <a href="#" aria-label="Instagram">Instagram</a>
       <a href="#" aria-label="TikTok">TikTok</a>
     </aside>
+
   </footer>
 
-  <script>
-    const themeToggle = document.getElementById('theme-toggle');
-    const htmlEl = document.documentElement;
-
-    themeToggle.addEventListener('click', () => {
-      const current = htmlEl.getAttribute('data-theme');
-      const next = current === 'dark' ? 'light' : 'dark';
-      htmlEl.setAttribute('data-theme', next);
-    });
-  </script>
+  <script src="script.js" defer></script>
 
 </body>
+
 </html>
