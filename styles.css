@@ -1,12 +1,12 @@
 :root,
 :root[data-theme="dark"] {
-  --bg: #0e0b0a;
-  --fg: #ece2d0;
-  --accent: #8c1f2b;
-  --accent-2: #c9a24a;
-  --muted: #b0a084;
-  --card-bg: #1c1613;
-  --border: #232326;
+  --bg: #0e0b0a;        /* Figma: Color/Background */
+  --fg: #ece2d0;        /* Figma: Color/Title */
+  --accent: #8c1f2b;    /* Figma: Color/Accent-red */
+  --accent-2: #c9a24a;  /* Figma: Color/Accent-gold */
+  --muted: #b0a084;     /* Figma: Color/Text */
+  --card-bg: #1c1613;   /* Figma: Color/Card */
+  --border: #232326;    /* Figma: Color/Border */
 }
 
 :root[data-theme="light"] {
@@ -19,6 +19,16 @@
   --border: #e0d9cc;
 }
 
+:root {
+  --font-size-h1: 48px;    /* Figma: Heading/H1 */
+  --font-size-h2: 32px;    /* Figma: Heading/H2 */
+  --font-size-body: 16px;  /* Figma: Body/Regular */
+  --font-size-small: 14px; /* Figma: Caption */
+
+  --space-2: 12px;         /* gap картки, padding кнопки зверху/знизу */
+  --space-4: 24px;         /* gap меню, padding кнопки з боків */
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -29,6 +39,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: var(--font-size-body);
   line-height: 1.5;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -130,12 +141,12 @@ section:last-of-type {
 }
 
 section h2 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-h2);
   margin-bottom: 1.25rem;
 }
 
 #hero h1 {
-  font-size: clamp(1.8rem, 6vw, 3.6rem);
+  font-size: var(--font-size-h1);
   max-width: 20ch;
   margin-bottom: 1rem;
 }
@@ -339,7 +350,7 @@ footer .footer-social {
 #main-menu ul {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: var(--space-4);
   margin: 0;
   padding: 0;
   list-style: none;
