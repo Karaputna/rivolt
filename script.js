@@ -75,18 +75,55 @@ function checkEmail(email) {
 }
 
 if (form && emailInput && formMessage) {
-  form.addEventListener("submit", function (event) {
+    form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
-    const email = emailInput.value.trim();
-    console.log("Email:", email);
+    const nameInput = form.querySelector("input[type='text']");
+    const messageInput = form.querySelector("textarea");
+    const submitBtn = form.querySelector("button[type='submit']");
 
-    const error = checkEmail(email);
+    // Крок 5: збираємо дані
+    const data = {
+      name: nameInput ? nameInput.value.trim() : "",
+      email: emailInput.value.trim(),
+      message: messageInput ? messageInput.value.trim() : ""
+    };
+    console.log("Дані форми:", data);
+
+    const error = checkEmail(data.email);
     if (error) {
       showMessage(error, "form-error");
-    } else {
+      return;
+    }
+
+    // Крок 8: стан завантаження
+    const oldText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Надсилання…";
+    showMessage("", "");
+
+    try {
+      // Кроки 6-7: POST і перевірка статусу
+      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error("Помилка сервера: " + response.status);
+      }
+
+      const result = await response.json();
+      console.log("Відповідь сервера:", result);
       showMessage("Дякуємо! Повідомлення надіслано.", "form-success");
       form.reset();
+    } catch (err) {
+      console.log(err);
+      showMessage("Не вдалося надіслати. Перевірте інтернет і спробуйте ще раз.", "form-error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = oldText;
     }
   });
 
@@ -100,4 +137,30 @@ if (form && emailInput && formMessage) {
   });
 } else {
   console.log("Форму, поле email або #form-message не знайдено");
+}
+
+const newsList = document.querySelector("#news-list");
+const newsMessage = document.querySelector("#news-message");
+
+async function loadNews() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts?_limit=3");
+    if (!response.ok) {
+      throw new Error("Статус " + response.status);
+    }
+    const posts = await response.json();
+    newsList.innerHTML = "";
+    posts.forEach(function (post) {
+      const li = document.createElement("li");
+      li.textContent = post.title;
+      newsList.appendChild(li);
+    });
+  } catch (error) {
+    console.log(error);
+    newsMessage.textContent = "Не вдалося завантажити новини. Спробуйте пізніше.";
+  }
+}
+
+if (newsList && newsMessage) {
+  loadNews();
 }
