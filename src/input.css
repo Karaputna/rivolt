@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0e0b0a;
+  --color-cream: #ece2d0;
+  --color-gold: #c9a24a;
+  --color-muted: #b0a084;
+  --color-card: #1c1613;
+  --color-line: #232326;
+}
