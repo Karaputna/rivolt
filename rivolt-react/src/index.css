@@ -477,3 +477,14 @@ footer .footer-social {
   color: #C9A24A;
   margin-top: 0.75rem;
 }
+
+
+.filters {
+  display: flex;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.filters button.active {
+  outline: 2px solid var(--accent-2);
+}

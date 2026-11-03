@@ -1,10 +1,20 @@
-function Header() {
+function Header({ theme, onToggleTheme }) {
   return (
     <header>
       <div className="header-controls">
         <div className="logo">
           RIV<span>OLT</span>
         </div>
+
+        <button
+          id="theme-toggle"
+          type="button"
+          onClick={onToggleTheme}
+          aria-label="Перемкнути тему"
+          title="Перемкнути тему"
+        >
+          {theme === "dark" ? "☀" : "☾"}
+        </button>
       </div>
 
       <nav id="main-menu" aria-label="Основна навігація">
