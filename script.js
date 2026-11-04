@@ -1,6 +1,6 @@
 const brandName = "RIVOLT";
 const categories = ["Футболки", "Кофти та худі", "Новинки", "Популярне"];
-let currentYear = new Date().getFullYear();
+const currentYear = new Date().getFullYear();
 
 console.log("Бренд:", brandName);
 console.log("Категорії:", categories);
@@ -8,14 +8,22 @@ console.log("Поточний рік:", currentYear);
 
 const heroTitle = document.querySelector("#hero h1");
 const yearEl = document.querySelector("#year");
-console.log("Заголовок сторінки:", heroTitle.textContent.trim());
 
-yearEl.textContent = currentYear;
+if (heroTitle) {
+  console.log("Заголовок сторінки:", heroTitle.textContent.trim());
+}
+if (yearEl) {
+  yearEl.textContent = currentYear;
+}
 
 const productCards = document.querySelectorAll(".product");
 console.log("Кількість карток товарів:", productCards.length);
 
 const menuLinks = document.querySelectorAll("#main-menu a");
+const themeToggle = document.getElementById("theme-toggle");
+const menuToggle = document.getElementById("menu-toggle");
+const mainMenu = document.getElementById("main-menu");
+const htmlEl = document.documentElement;
 
 function setActiveLink(activeLink) {
   menuLinks.forEach(function (link) {
@@ -24,39 +32,39 @@ function setActiveLink(activeLink) {
   activeLink.classList.add("active");
 }
 
-const themeToggle = document.getElementById("theme-toggle");
-const menuToggle = document.getElementById("menu-toggle");
-const mainMenu = document.getElementById("main-menu");
-const htmlEl = document.documentElement;
+if (themeToggle) {
+  themeToggle.addEventListener("click", function () {
+    const current = htmlEl.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : "dark";
+    htmlEl.setAttribute("data-theme", next);
+  });
+}
 
-themeToggle.addEventListener("click", function () {
-  const current = htmlEl.getAttribute("data-theme");
-  const next = current === "dark" ? "light" : "dark";
-  htmlEl.setAttribute("data-theme", next);
-});
-
-menuToggle.addEventListener("click", function () {
-  const isOpen = mainMenu.classList.toggle("open");
-
-  menuToggle.setAttribute("aria-expanded", isOpen);
-  menuToggle.setAttribute(
-    "aria-label",
-    isOpen ? "Закрити меню" : "Відкрити меню"
-  );
-});
+if (menuToggle && mainMenu) {
+  menuToggle.addEventListener("click", function () {
+    const isOpen = mainMenu.classList.toggle("open");
+    menuToggle.setAttribute("aria-expanded", isOpen);
+    menuToggle.setAttribute(
+      "aria-label",
+      isOpen ? "Закрити меню" : "Відкрити меню"
+    );
+  });
+}
 
 menuLinks.forEach(function (link) {
   link.addEventListener("click", function () {
     setActiveLink(link);
-
-    mainMenu.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", "Відкрити меню");
+    if (mainMenu && menuToggle) {
+      mainMenu.classList.remove("open");
+      menuToggle.setAttribute("aria-expanded", "false");
+      menuToggle.setAttribute("aria-label", "Відкрити меню");
+    }
   });
 });
 
 const form = document.querySelector("#contacts form");
 const emailInput = document.querySelector("#contacts input[type='email']");
+const phoneInput = document.querySelector("#contacts input[name='phone']");
 const formMessage = document.querySelector("#form-message");
 
 function showMessage(text, type) {
@@ -74,36 +82,47 @@ function checkEmail(email) {
   return "";
 }
 
-if (form && emailInput && formMessage) {
-    form.addEventListener("submit", async function (event) {
+function checkPhone(phone) {
+  if (phone === "") return "Введіть номер телефону.";
+  return /^\+380\d{9}$/.test(phone)
+    ? ""
+    : "Телефон має бути у форматі +380XXXXXXXXX.";
+}
+
+if (form && emailInput && phoneInput && formMessage) {
+  form.addEventListener("submit", async function (event) {
     event.preventDefault();
 
     const nameInput = form.querySelector("input[type='text']");
     const messageInput = form.querySelector("textarea");
     const submitBtn = form.querySelector("button[type='submit']");
 
-    // Крок 5: збираємо дані
     const data = {
       name: nameInput ? nameInput.value.trim() : "",
       email: emailInput.value.trim(),
+      phone: phoneInput.value.trim(),
       message: messageInput ? messageInput.value.trim() : ""
     };
     console.log("Дані форми:", data);
 
-    const error = checkEmail(data.email);
-    if (error) {
-      showMessage(error, "form-error");
+    const emailError = checkEmail(data.email);
+    if (emailError) {
+      showMessage(emailError, "form-error");
       return;
     }
 
-    // Крок 8: стан завантаження
+    const phoneError = checkPhone(data.phone);
+    if (phoneError) {
+      showMessage(phoneError, "form-error");
+      return;
+    }
+
     const oldText = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = "Надсилання…";
     showMessage("", "");
 
     try {
-      // Кроки 6-7: POST і перевірка статусу
       const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -135,8 +154,17 @@ if (form && emailInput && formMessage) {
       showMessage("Email виглядає правильно.", "form-success");
     }
   });
+
+  phoneInput.addEventListener("input", function () {
+    const error = checkPhone(phoneInput.value.trim());
+    if (error) {
+      showMessage(error, "form-error");
+    } else {
+      showMessage("Телефон у правильному форматі.", "form-success");
+    }
+  });
 } else {
-  console.log("Форму, поле email або #form-message не знайдено");
+  console.log("Форму, поля email/телефону або #form-message не знайдено");
 }
 
 const newsList = document.querySelector("#news-list");

@@ -75,11 +75,7 @@
 
       <div class="grid grid-cols-1! md:grid-cols-3! gap-6!">
 
-      </div>
-
         <article class="product bg-card! rounded-lg! shadow-md! p-4!">
-
-        </article>
 
           <img
             class="thumb"
@@ -96,8 +92,6 @@
 
         <article class="product bg-card! rounded-lg! shadow-md! p-4!">
 
-        </article>
-
           <img
             class="thumb"
             src="images/tshirt-concrete.jpg.jpg"
@@ -112,8 +106,6 @@
         </article>
 
         <article class="product bg-card! rounded-lg! shadow-md! p-4!">
-
-        </article>
 
           <img
             class="thumb"
@@ -243,8 +235,12 @@
         індивідуальність.
       </p>
 
-      <img src="images\moodboard-tshirt.webp.png" alt="Футболка з золотою блискавкою" width="400" height="400">
-    
+      <img
+        src="images/moodboard-tshirt.webp.png"
+        alt="Футболка з золотою блискавкою"
+        width="400"
+        height="400">
+
     </section>
 
     <section id="favorites">
@@ -268,12 +264,17 @@
       </p>
 
     </section>
-    
+
     <section id="news">
-  <h2>Новини</h2>
-  <ul id="news-list"></ul>
-  <p id="news-message"></p>
-</section>
+
+      <h2>Новини</h2>
+
+      <ul id="news-list"></ul>
+
+      <p id="news-message"></p>
+
+    </section>
+
     <section id="contacts">
 
       <h2>Контакти</h2>
@@ -297,6 +298,18 @@
             id="email"
             name="email"
             placeholder="you@example.com"
+            required>
+        </div>
+
+        <div class="field">
+          <label for="phone">Телефон</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            placeholder="+380501234567"
+            inputmode="tel"
+            autocomplete="tel"
             required>
         </div>
 
@@ -329,8 +342,9 @@
             Погоджуюсь на обробку персональних даних
           </label>
         </div>
-        
+
         <button type="submit" class="px-6 py-3 rounded-lg bg-gold! text-ink! hover:bg-gold/80!">Надіслати</button>
+
         <div id="form-message" aria-live="polite"></div>
 
       </form>
