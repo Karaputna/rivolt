@@ -123,7 +123,7 @@ if (form && emailInput && phoneInput && formMessage) {
     showMessage("", "");
 
     try {
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      const response = await fetch("http://localhost:3000/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
@@ -191,4 +191,49 @@ async function loadNews() {
 
 if (newsList && newsMessage) {
   loadNews();
+}
+
+const apiGrid = document.querySelector("#api-grid");
+const apiMessage = document.querySelector("#api-message");
+
+async function loadProjects() {
+  try {
+    const response = await fetch("http://localhost:3000/api/projects");
+    if (!response.ok) {
+      throw new Error("Статус " + response.status);
+    }
+    const projects = await response.json();
+    apiGrid.innerHTML = "";
+
+    projects.forEach(function (p) {
+      const card = document.createElement("article");
+      card.className = "product";
+
+      const img = document.createElement("img");
+      img.className = "thumb";
+      img.src = p.image;
+      img.alt = p.title;
+      img.width = 400;
+      img.height = 500;
+
+      const title = document.createElement("h3");
+      title.textContent = p.title;
+
+      const price = document.createElement("p");
+      price.className = "price";
+      price.textContent = p.price + " ₴";
+
+      card.appendChild(img);
+      card.appendChild(title);
+      card.appendChild(price);
+      apiGrid.appendChild(card);
+    });
+  } catch (error) {
+    console.log(error);
+    apiMessage.textContent = "Не вдалося завантажити каталог. Перевірте, чи запущений сервер.";
+  }
+}
+
+if (apiGrid && apiMessage) {
+  loadProjects();
 }
