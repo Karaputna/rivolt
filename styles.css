@@ -477,3 +477,20 @@ footer .footer-social {
   color: #C9A24A;
   margin-top: 0.75rem;
 }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  padding: 8px 16px;
+  background: #C9A24A;
+  color: #0E0B0A;
+  z-index: 1000;
+}
+.skip-link:focus {
+  left: 0;
+}
+:focus-visible {
+  outline: 3px solid #DDB95E;
+  outline-offset: 2px;
+}
