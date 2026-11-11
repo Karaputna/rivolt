@@ -32,11 +32,17 @@ function setActiveLink(activeLink) {
   activeLink.classList.add("active");
 }
 
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme === "light" || savedTheme === "dark") {
+  htmlEl.setAttribute("data-theme", savedTheme);
+}
+
 if (themeToggle) {
   themeToggle.addEventListener("click", function () {
     const current = htmlEl.getAttribute("data-theme");
     const next = current === "dark" ? "light" : "dark";
     htmlEl.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
   });
 }
 
@@ -76,8 +82,8 @@ function checkEmail(email) {
   if (email === "") {
     return "Введіть email.";
   }
-  if (!email.includes("@")) {
-    return "Email має містити символ @.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+    return "Введіть коректний email, наприклад name@example.com.";
   }
   return "";
 }
@@ -116,6 +122,23 @@ if (form && emailInput && phoneInput && formMessage) {
       showMessage(phoneError, "form-error");
       return;
     }
+
+        if (data.name === "") {
+      showMessage("Введіть ім'я.", "form-error");
+      return;
+    }
+
+    if (data.message === "") {
+      showMessage("Введіть повідомлення.", "form-error");
+      return;
+    }
+
+    const consentInput = form.querySelector("#consent");
+    if (consentInput && !consentInput.checked) {
+      showMessage("Потрібна згода на обробку персональних даних.", "form-error");
+      return;
+    }
+    
 
     const oldText = submitBtn.textContent;
     submitBtn.disabled = true;

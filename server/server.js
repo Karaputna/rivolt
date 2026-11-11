@@ -8,10 +8,9 @@ app.use(cors());
 app.use(express.json());
 
 const projects = [
-  { id: 1, title: 'Футболка "Static"', price: 799, image: "images/tshirt-static.jpg.jpg" },
-  { id: 2, title: 'Футболка "Concrete"', price: 849, image: "images/tshirt-concrete.jpg.jpg" },
-  { id: 3, title: 'Футболка "Riot"', price: 799, image: "images/tshirt-riot.jpg.jpg" },
-  { id: 4, title: 'Худі "Shadow"', price: 1899, image: "images/hoodie-shadow.jpg.jpg" }
+  { id: 2, title: 'Футболка "Concrete"', price: 849, image: "images/tshirt-concrete.webp" },
+  { id: 3, title: 'Футболка "Riot"', price: 799, image: "images/tshirt-riot.webp" },
+  { id: 4, title: 'Худі "Shadow"', price: 1899, image: "images/hoodie-shadow.webp" }
 ];
 
 app.get("/api/projects", (req, res) => {
