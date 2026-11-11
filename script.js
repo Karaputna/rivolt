@@ -260,3 +260,12 @@ async function loadProjects() {
 if (apiGrid && apiMessage) {
   loadProjects();
 }
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function () {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then(function () { console.log("Service worker зареєстровано"); })
+      .catch(function (err) { console.log("Помилка service worker:", err); });
+  });
+}
