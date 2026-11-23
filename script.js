@@ -269,3 +269,246 @@ if ("serviceWorker" in navigator) {
       .catch(function (err) { console.log("Помилка service worker:", err); });
   });
 }
+
+// ===== Кошик і фільтрація (логіка — у shop-logic.js) =====
+const shopCards = document.querySelectorAll("article.product[data-id]");
+const cartList = document.querySelector("#cart-list");
+const cartEmpty = document.querySelector("#cart-empty");
+const cartSummary = document.querySelector("#cart-summary");
+const cartTotalEl = document.querySelector("#cart-total");
+const cartCountEl = document.querySelector("#cart-count");
+const cartStatus = document.querySelector("#cart-status");
+const cartBadge = document.querySelector("#cart-badge");
+const cartClearBtn = document.querySelector("#cart-clear");
+
+function getStorage() {
+  try {
+    return window.localStorage;
+  } catch (error) {
+    return null;
+  }
+}
+
+function formatPrice(value) {
+  return value + " ₴";
+}
+
+if (window.RivoltShop && shopCards.length > 0 && cartList) {
+  const shop = window.RivoltShop;
+  const storage = getStorage();
+  let cart = shop.loadCart(storage);
+
+  function announce(text) {
+    if (cartStatus) cartStatus.textContent = text;
+  }
+
+  function updateCart(nextCart) {
+    cart = nextCart;
+    if (!shop.saveCart(storage, cart)) {
+      console.log("Кошик не вдалося зберегти в localStorage.");
+    }
+    renderCart();
+  }
+
+  function makeButton(text, className, label, handler) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = className;
+    button.textContent = text;
+    button.setAttribute("aria-label", label);
+    button.addEventListener("click", handler);
+    return button;
+  }
+
+  function renderCart() {
+    cartList.innerHTML = "";
+    const totals = shop.getTotals(cart);
+
+    cart.forEach(function (item) {
+      const li = document.createElement("li");
+      li.className = "cart-item";
+
+      const img = document.createElement("img");
+      img.src = item.image;
+      img.alt = "";
+      img.width = 64;
+      img.height = 80;
+
+      const info = document.createElement("div");
+      const title = document.createElement("h3");
+      title.className = "cart-item-title";
+      title.textContent = item.title;
+      const price = document.createElement("p");
+      price.className = "cart-item-price";
+      price.textContent = formatPrice(item.price);
+      info.appendChild(title);
+      info.appendChild(price);
+
+      const controls = document.createElement("div");
+      controls.className = "cart-item-controls";
+
+      const qty = document.createElement("span");
+      qty.className = "cart-qty";
+      qty.textContent = item.quantity;
+
+      const lineSum = document.createElement("span");
+      lineSum.className = "cart-line-sum";
+      lineSum.textContent = formatPrice(item.price * item.quantity);
+
+      controls.appendChild(
+        makeButton("−", "qty-btn", "Зменшити кількість: " + item.title, function () {
+          updateCart(shop.changeQuantity(cart, item.id, -1));
+          announce("Кількість змінено: " + item.title);
+        })
+      );
+      controls.appendChild(qty);
+      controls.appendChild(
+        makeButton("+", "qty-btn", "Збільшити кількість: " + item.title, function () {
+          updateCart(shop.changeQuantity(cart, item.id, 1));
+          announce("Кількість змінено: " + item.title);
+        })
+      );
+      controls.appendChild(lineSum);
+      controls.appendChild(
+        makeButton("Видалити", "cart-remove", "Видалити з кошика: " + item.title, function () {
+          updateCart(shop.removeItem(cart, item.id));
+          announce("Видалено з кошика: " + item.title);
+        })
+      );
+
+      li.appendChild(img);
+      li.appendChild(info);
+      li.appendChild(controls);
+      cartList.appendChild(li);
+    });
+
+    const isEmpty = cart.length === 0;
+    cartEmpty.hidden = !isEmpty;
+    cartSummary.hidden = isEmpty;
+    cartTotalEl.textContent = formatPrice(totals.sum);
+    cartCountEl.textContent = totals.count;
+    cartBadge.textContent = totals.count > 0 ? " (" + totals.count + ")" : "";
+  }
+
+  // Додавання з карток (делегування: працює для всіх секцій)
+  shopCards.forEach(function (card) {
+    const button = card.querySelector(".add-to-cart");
+    if (!button) return;
+    const titleText = card.querySelector("h3").textContent.trim();
+    button.setAttribute("aria-label", "Додати в кошик: " + titleText);
+
+    button.addEventListener("click", function () {
+      updateCart(
+        shop.addItem(cart, {
+          id: card.dataset.id,
+          title: titleText,
+          price: Number(card.dataset.price),
+          image: card.querySelector("img").getAttribute("src")
+        })
+      );
+      announce("Додано в кошик: " + titleText);
+      button.textContent = "Додано ✓";
+      setTimeout(function () {
+        button.textContent = "До кошика";
+      }, 1200);
+    });
+  });
+
+  if (cartClearBtn) {
+    cartClearBtn.addEventListener("click", function () {
+      updateCart(shop.clearCart());
+      announce("Кошик очищено");
+    });
+  }
+
+  // Синхронізація між вкладками
+  window.addEventListener("storage", function (event) {
+    if (event.key === shop.STORAGE_KEY) {
+      cart = shop.loadCart(storage);
+      renderCart();
+    }
+  });
+
+  renderCart();
+
+  // ----- Фільтрація -----
+  const filterChips = document.querySelectorAll(".filter-chip");
+  const priceSelect = document.querySelector("#filter-price");
+  const queryInput = document.querySelector("#filter-query");
+  const resetBtn = document.querySelector("#filter-reset");
+  const resultEl = document.querySelector("#filter-result");
+  const filterState = { category: "all", maxPrice: null, query: "" };
+
+  const catalogProducts = [];
+  const seenIds = {};
+  shopCards.forEach(function (card) {
+    if (seenIds[card.dataset.id]) return;
+    seenIds[card.dataset.id] = true;
+    catalogProducts.push({
+      id: card.dataset.id,
+      category: card.dataset.category,
+      title: card.querySelector("h3").textContent.trim(),
+      price: Number(card.dataset.price)
+    });
+  });
+
+  function applyFilters() {
+    const matched = shop.filterProducts(catalogProducts, filterState);
+    const matchedIds = {};
+    matched.forEach(function (product) {
+      matchedIds[product.id] = true;
+    });
+
+    shopCards.forEach(function (card) {
+      card.hidden = !matchedIds[card.dataset.id];
+    });
+
+    ["tshirts", "hoodies", "new", "bestsellers"].forEach(function (sectionId) {
+      const section = document.getElementById(sectionId);
+      if (!section) return;
+      const visible = section.querySelectorAll("article.product:not([hidden])");
+      section.hidden = visible.length === 0;
+    });
+
+    resultEl.textContent =
+      matched.length === 0
+        ? "Нічого не знайдено. Змініть фільтри або натисніть «Скинути»."
+        : "Знайдено товарів: " + matched.length;
+  }
+
+  filterChips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      filterState.category = chip.dataset.category;
+      filterChips.forEach(function (other) {
+        other.setAttribute("aria-pressed", other === chip ? "true" : "false");
+      });
+      applyFilters();
+    });
+  });
+
+  priceSelect.addEventListener("change", function () {
+    filterState.maxPrice = priceSelect.value === "" ? null : Number(priceSelect.value);
+    applyFilters();
+  });
+
+  queryInput.addEventListener("input", function () {
+    filterState.query = queryInput.value;
+    applyFilters();
+  });
+
+  resetBtn.addEventListener("click", function () {
+    filterState.category = "all";
+    filterState.maxPrice = null;
+    filterState.query = "";
+    priceSelect.value = "";
+    queryInput.value = "";
+    filterChips.forEach(function (chip) {
+      chip.setAttribute("aria-pressed", chip.dataset.category === "all" ? "true" : "false");
+    });
+    applyFilters();
+  });
+
+  applyFilters();
+} else {
+  console.log("Кошик і фільтри не ініціалізовано: немає shop-logic.js або карток товарів.");
+}

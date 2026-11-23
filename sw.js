@@ -1,10 +1,11 @@
-const CACHE_NAME = "rivolt-v1";
+const CACHE_NAME = "rivolt-v2";
 const ASSETS = [
   "/",
   "/index.html",
   "/styles.css",
   "/dist/output.css",
   "/script.js",
+  "/shop-logic.js",
   "/favicon.svg"
 ];
 
