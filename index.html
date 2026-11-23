@@ -54,7 +54,7 @@
         <li><a href="#bestsellers">Популярне</a></li>
         <li><a href="#about">Про бренд</a></li>
         <li><a href="#favorites">Обране</a></li>
-        <li><a href="#cart">Кошик</a></li>
+        <li><a href="#cart">Кошик<span id="cart-badge"></span></a></li>
         <li><a href="#contacts">Контакти</a></li>
       </ul>
 
@@ -63,8 +63,6 @@
   </header>
 
   <main id="main-content">
-    
-  </main>
 
     <section id="hero">
 
@@ -80,13 +78,48 @@
 
     </section>
 
+    <section id="filters" aria-labelledby="filters-title">
+
+      <h2 id="filters-title">Підбір товарів</h2>
+
+      <div class="filter-bar">
+
+        <div class="filter-group" role="group" aria-label="Категорія">
+          <button type="button" class="filter-chip" data-category="all" aria-pressed="true">Усі</button>
+          <button type="button" class="filter-chip" data-category="tshirts" aria-pressed="false">Футболки</button>
+          <button type="button" class="filter-chip" data-category="hoodies" aria-pressed="false">Кофти та худі</button>
+        </div>
+
+        <div class="field">
+          <label for="filter-price">Максимальна ціна</label>
+          <select id="filter-price">
+            <option value="">Будь-яка</option>
+            <option value="1000">до 1000 ₴</option>
+            <option value="1500">до 1500 ₴</option>
+            <option value="2000">до 2000 ₴</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="filter-query">Пошук за назвою</label>
+          <input type="search" id="filter-query" placeholder="Наприклад, Riot" autocomplete="off">
+        </div>
+
+        <button type="button" id="filter-reset" class="filter-reset">Скинути</button>
+
+      </div>
+
+      <p id="filter-result" class="filter-result" aria-live="polite"></p>
+
+    </section>
+
         <section id="tshirts">
 
       <h2>Футболки</h2>
 
       <div class="grid">
 
-        <article class="product">
+        <article class="product" data-id="tshirt-concrete" data-category="tshirts" data-price="849">
 
           <img
             class="thumb"
@@ -99,10 +132,11 @@
           <h3>Футболка "Concrete"</h3>
 
           <p class="price">849 ₴</p>
+          <button type="button" class="add-to-cart">До кошика</button>
 
         </article>
 
-        <article class="product">
+        <article class="product" data-id="tshirt-riot" data-category="tshirts" data-price="799">
 
           <img
             class="thumb"
@@ -115,6 +149,7 @@
           <h3>Футболка "Riot"</h3>
 
           <p class="price">799 ₴</p>
+          <button type="button" class="add-to-cart">До кошика</button>
 
         </article>
 
@@ -128,7 +163,7 @@
 
       <div class="grid">
 
-        <article class="product">
+        <article class="product" data-id="hoodie-shadow" data-category="hoodies" data-price="1899">
 
           <img
             class="thumb"
@@ -141,10 +176,11 @@
           <h3>Худі "Shadow"</h3>
 
           <p class="price">1899 ₴</p>
+          <button type="button" class="add-to-cart">До кошика</button>
 
         </article>
 
-        <article class="product">
+        <article class="product" data-id="sweatshirt-signal" data-category="hoodies" data-price="1599">
 
           <img
             class="thumb"
@@ -157,6 +193,7 @@
           <h3>Кофта "Signal"</h3>
 
           <p class="price">1599 ₴</p>
+          <button type="button" class="add-to-cart">До кошика</button>
 
         </article>
 
@@ -176,7 +213,7 @@
 
       <div class="grid">
 
-        <article class="product">
+        <article class="product" data-id="hoodie-voltage" data-category="hoodies" data-price="1999">
 
           <span class="badge">NEW</span>
 
@@ -191,6 +228,7 @@
           <h3>Худі "Voltage"</h3>
 
           <p class="price">1999 ₴</p>
+          <button type="button" class="add-to-cart">До кошика</button>
 
         </article>
 
@@ -204,7 +242,7 @@
 
       <div class="grid">
 
-                <article class="product">
+                <article class="product" data-id="tshirt-riot" data-category="tshirts" data-price="799">
 
           <span class="badge">Бестселер</span>
 
@@ -219,6 +257,7 @@
           <h3>Футболка "Riot"</h3>
 
           <p class="price">799 ₴</p>
+          <button type="button" class="add-to-cart">До кошика</button>
 
         </article>
 
@@ -261,10 +300,22 @@
 
       <h2>Кошик</h2>
 
-      <p>
+      <p id="cart-empty">
         Кошик порожній.
         Додай товари з каталогу вище.
       </p>
+
+      <ul id="cart-list" class="cart-list"></ul>
+
+      <div id="cart-summary" class="cart-summary" hidden>
+        <p class="cart-total">
+          Разом: <strong id="cart-total">0 ₴</strong>
+          (<span id="cart-count">0</span> шт.)
+        </p>
+        <button type="button" id="cart-clear" class="cart-clear">Очистити кошик</button>
+      </div>
+
+      <p id="cart-status" class="visually-hidden" aria-live="polite"></p>
 
     </section>
 
@@ -390,6 +441,7 @@
 
   </footer>
 
+  <script src="shop-logic.js" defer></script>
   <script src="script.js" defer></script>
 
 </body>
